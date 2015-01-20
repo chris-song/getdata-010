@@ -28,25 +28,25 @@ train_X$y <- train_Y$V1
 train_X$s <- train_S$V1
 test_X$y <- test_Y$V1
 test_X$s <- test_S$V1
-data = rbind(train_X, test_X)
+data <- rbind(train_X, test_X)
 
 # 2 - Extracts only the measurements on the mean and standard deviation for each measurement.
 features <- read.table("UCI HAR Dataset\\features.txt")
 colnames(features) <- c("Col_Idx", "Name")
-features$Name = as.character(features$Name)
+features$Name <- as.character(features$Name)
 # find variables that only have -mean()- or -std()- in their names
 features_wanted <- features[grep("-mean[(][)]-|-std[(][)]-", features$Name), ]
-cols = ncol(data)
+cols <- ncol(data)
 data_wanted <- data[, c(features_wanted$Col_Idx, cols-1, cols)]
 
 # 3 - Uses descriptive activity names to name the activities in the data set
 activity_labels <- read.table("UCI HAR Dataset\\activity_labels.txt")
 colnames(activity_labels) <- c("Id", "Label")
 
-cols = ncol(data_wanted)
+cols <- ncol(data_wanted)
 activities <- data.frame(Id=data_wanted[, cols-1])
-x=merge(activities, activity_labels, sort=FALSE)
-data_wanted[, cols-1] = x$Label
+x <- merge(activities, activity_labels, sort=FALSE)
+data_wanted[, cols-1] <- x$Label
 
 # 4 - Appropriately labels the data set with descriptive variable names
 colnames(data_wanted) <- c(features_wanted$Name, "Activity", "Subject")
@@ -54,6 +54,6 @@ colnames(data_wanted) <- c(features_wanted$Name, "Activity", "Subject")
 # 5 - From the data set in step 4, creates a second, independent tidy data 
 # set with the average of each variable for each activity and each subject.
 
-avg_all = ddply(data_wanted, .(Subject, Activity), numcolwise(mean, rm.na=TRUE))
+avg_all <- ddply(data_wanted, .(Subject, Activity), numcolwise(mean, rm.na=TRUE))
 
 write.table(avg_all, "run_analysis_output.txt", row.name=FALSE)
