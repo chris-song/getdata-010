@@ -10,4 +10,4 @@ From the original Samsung data set, we select all variables (aka columns) that r
            STANDING
              LAYING
 
-3 - 50: averge of the mean and standard deviation of various measurements of accelerometer and gyroscope of the fitness device, grouped by Subject and Activity. 
+ 3 - 50: averge of the mean and standard deviation of various measurements of accelerometer and gyroscope of the fitness device, grouped by Subject and Activity. 
